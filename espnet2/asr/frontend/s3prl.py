@@ -22,6 +22,7 @@ class S3prlFrontend(AbsFrontend):
         download_dir: Optional[str] = None,
         multilayer_feature: bool = False,
         layer: int = -1,
+        multilayer: Optional[list] = None,
     ):
         try:
             import s3prl
@@ -60,6 +61,8 @@ class S3prlFrontend(AbsFrontend):
             assert (
                 not multilayer_feature
             ), "multilayer feature will be deactivated, when specific layer used"
+        elif multilayer_feature and multilayer is not None:
+            layer_selections = multilayer
         else:
             layer_selections = None
         featurizer = Featurizer(upstream, layer_selections=layer_selections)
